@@ -32,8 +32,8 @@ pipeline {
                 sh "./gradlew checkstyleMain -Pcheckstyle.config=file:/home/calculator/config/checkstyle/checkstyle.xml"
                 
                 publishHTML(target: [
-                    reportDir: 'build/reports/checkstyle/main',
-                    reportFiles: 'checkstyle.html',
+                    reportDir: 'build/reports/checkstyle/',
+                    reportFiles: 'main.html',
                     reportName: 'Checkstyle Report'
                 ])
             }
