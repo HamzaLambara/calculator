@@ -1,51 +1,50 @@
 plugins {
-	id 'java'
-	id 'org.springframework.boot' version '3.1.6'
-	id 'io.spring.dependency-management' version '1.1.4'
-	
+    id 'java'
+    id 'org.springframework.boot' version '3.2.0'
+    id 'io.spring.dependency-management' version '1.1.4'
+    id 'jacoco'
 }
-apply plugin: 'io.spring.dependency-management'
-apply plugin: "jacoco"
-apply plugin: 'checkstyle'
 
 group = 'com.HamzaLambara'
 version = '0.0.1-SNAPSHOT'
 
 java {
-	sourceCompatibility = '17'
+    sourceCompatibility = '17'
 }
 
 repositories {
-	mavenCentral()
+    mavenCentral()
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-web'
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation('org.junit.jupiter:junit-jupiter:5.7.0-M1')
-
-}
-
-tasks.named('bootBuildImage') {
-	builder = 'paketobuildpacks/builder-jammy-base:latest'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.7.0'
 }
 
 tasks.named('test') {
-	useJUnitPlatform()
+    useJUnitPlatform()
 }
+
+test {
+    useJUnitPlatform()
+}
+
+jacoco {
+    toolVersion = "0.8.7" 
+}
+
+jacocoTestReport {
+    dependsOn test
+}
+
 jacocoTestCoverageVerification {
-     violationRules { 
-          rule { 
-               limit { 
-                    minimum = 0.2 
-               } 
-          } 
-     } 
-} 
-checkstyle {
-	checkstyleTest.enabled = false
+    violationRules {
+        rule {
+            limit {
+                minimum = 0.2
+            }
+        }
+    }
 }
-
-
-
 
