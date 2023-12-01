@@ -16,25 +16,29 @@ pipeline {
         stage("Couverture du code") {
             steps {
                 sh "./gradlew jacocoTestReport"
-                publishHTML (target: [
+                
+                publishHTML(target: [
                     reportDir: 'build/reports/jacoco/test/html',
                     reportFiles: 'index.html',
-                    reportName: "JaCoCo Report"
+                    reportName: 'JaCoCo Report'
                 ])
+                
                 sh "./gradlew jacocoTestCoverageVerification"
             }
         }
         
         stage("Analyse statique du code") {
             steps {
-                sh "./gradlew checkstyleMain"
-                publishHTML (target: [
+                sh "./gradlew checkstyleMain -Pcheckstyle.config=file:/home/calculator/config/checkstyle/checkstyle.xml"
+                
+                publishHTML(target: [
                     reportDir: 'build/reports/checkstyle/main',
                     reportFiles: 'checkstyle.html',
-                    reportName: "Checkstyle Report"
+                    reportName: 'Checkstyle Report'
                 ])
             }
         }
     }
 }
+
 
