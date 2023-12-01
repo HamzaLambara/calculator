@@ -31,7 +31,7 @@ test {
 }
 
 jacoco {
-    toolVersion = "0.8.7" // Assurez-vous d'utiliser la version la plus récente de JaCoCo
+    toolVersion = "0.8.7" 
 }
 
 jacocoTestReport {
