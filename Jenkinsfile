@@ -39,6 +39,13 @@ pipeline {
             }
         }
     }
+    post {
+        always {
+            mail to: 'lambara.hamza@gmail.com',
+                 subject: "Cher lion, votre compilation est terminée: ${currentBuild.fullDisplayName}",
+                 body: "Votre build est accompli. Veuillez vérifier: ${env.BUILD_URL}"
+        }
+    }
 }
 
 
