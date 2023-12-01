@@ -6,17 +6,17 @@ pipeline {
                 sh "./gradlew compileJava"
             }
         }
-
+        
         stage("Test unitaire") {
             steps {
                 sh "./gradlew test"
             }
         }
-
+        
         stage("Couverture du code") {
             steps {
                 sh "./gradlew jacocoTestReport"
-                publishHTML(target: [
+                publishHTML (target: [
                     reportDir: 'build/reports/jacoco/test/html',
                     reportFiles: 'index.html',
                     reportName: "JaCoCo Report"
@@ -24,7 +24,17 @@ pipeline {
                 sh "./gradlew jacocoTestCoverageVerification"
             }
         }
+        
+        stage("Analyse statique du code") {
+            steps {
+                sh "./gradlew checkstyleMain"
+                publishHTML (target: [
+                    reportDir: 'build/reports/checkstyle/main',
+                    reportFiles: 'checkstyle.html',
+                    reportName: "Checkstyle Report"
+                ])
+            }
+        }
     }
 }
-
 
