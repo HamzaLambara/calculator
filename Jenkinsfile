@@ -1,19 +1,16 @@
 pipeline {
- agent any
- stages {
-
-      stage("Compilation") {
-            steps {
-                  sh "./gradlew compileJava"
-
-            }
-
-      }
-      stage("test unitaire") {
-            steps {
-                  sh "./gradlew test"
-            }
-      }
- }
-
+    agent any
+    stages {
+        stage("Compilation") {
+            steps {
+                sh "./gradlew compileJava"
+            }
+        }
+        stage("Test unitaire") {
+            steps {
+                sh "./gradlew test"
+            }
+        }
+    }
 }
+
